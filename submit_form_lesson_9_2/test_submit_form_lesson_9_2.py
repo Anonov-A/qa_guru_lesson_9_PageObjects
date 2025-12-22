@@ -1,11 +1,9 @@
-import os
-import tempfile
 import pytest
 from datetime import date
 from selene import browser
 from selenium import webdriver
-from models import User
-from pages import RegistrationPage
+from submit_form_lesson_9_2.models.models import User
+from submit_form_lesson_9_2.pages.pages import RegistrationPage
 
 
 @pytest.fixture(scope='function')
@@ -21,7 +19,6 @@ def browser_management():
 
 
 def test_registration_alexey(browser_management):
-    """Тест с данными Алексея"""
 
     user = User(
         first_name='Алексей',
@@ -41,9 +38,3 @@ def test_registration_alexey(browser_management):
 
     picture_filename = registration_page.open().register(user)
     registration_page.should_have_registered(user, picture_filename)
-
-    # Очистка временного файла
-    temp_dir = tempfile.gettempdir()
-    temp_file_path = os.path.join(temp_dir, picture_filename)
-    if os.path.exists(temp_file_path):
-        os.unlink(temp_file_path)

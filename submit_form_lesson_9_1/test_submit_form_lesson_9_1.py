@@ -1,7 +1,12 @@
+import pytest
 import os
+import tempfile
 from selene import have
-from registration_page import RegistrationPage
+from pages.registration_page import RegistrationPage
 
+
+# Явно импортируем фикстуру из корневого conftest
+from conftest import browser_management
 
 def test_student_registration_form(browser_management):
     registration_page = RegistrationPage()
@@ -10,17 +15,17 @@ def test_student_registration_form(browser_management):
     registration_page.fill_first_name('Алексей')
     registration_page.fill_last_name('Антонов')
     registration_page.fill_email('antonov@example.com')
-    registration_page.fill_gender()
+    registration_page.fill_gender('Male')
     registration_page.fill_mobile_number('7951777777')
-    registration_page.fill_date()
+    registration_page.fill_date('27 July,1900')
     registration_page.select_subjects('Maths')
-    registration_page.select_hobbies()
+    registration_page.select_hobbies('Music')
 
     uploaded_filename = registration_page.load_picture()
 
     registration_page.fill_adress('Puskina, Kolotuskina, 123456789')
-    registration_page.choice_state()
-    registration_page.choice_city()
+    registration_page.choice_state('NCR')
+    registration_page.choice_city('Delhi')
     registration_page.click_submit()
 
     registration_page.modal_window.should(have.text('Thanks for submitting the form'))
@@ -38,9 +43,3 @@ def test_student_registration_form(browser_management):
         'NCR Delhi'
     ))
 
-    # Очистка файла
-    import tempfile
-    temp_dir = tempfile.gettempdir()
-    temp_file_path = os.path.join(temp_dir, uploaded_filename)
-    if os.path.exists(temp_file_path):
-        os.unlink(temp_file_path)

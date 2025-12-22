@@ -19,21 +19,18 @@ class RegistrationPage:
         self.city = browser.element('#city')
         self.submit_button = browser.element('#submit')
 
-        # Элементы для проверок
         self.modal_window = browser.element('#example-modal-sizes-title-lg')
         self.results_table = browser.all('.table td:nth-child(2)')
 
     def open(self):
-        """Открыть страницу регистрации"""
         browser.open('/automation-practice-form')
         browser.element('body').should(be.visible)
         browser.element('h5').should(have.text('Student Registration Form'))
         return self
 
     def register(self, user):
-        """Выполнить регистрацию пользователя (как в исходном коде)"""
 
-        # Заполнение полей (точно как в вашем исходном тесте)
+        # Заполнение полей
         browser.element('#firstName').type(user.first_name)
         browser.element('#lastName').type(user.last_name)
         browser.element('#userEmail').type(user.email)
@@ -55,7 +52,6 @@ class RegistrationPage:
         # Предметы
         browser.element('#subjectsInput').type('Maths').press_enter()
 
-        # Хобби - JavaScript клик
         label = browser.element('label[for="hobbies-checkbox-3"]').locate()
         browser.execute_script("arguments[0].click();", label)
 
@@ -84,12 +80,10 @@ class RegistrationPage:
         return picture_filename
 
     def should_have_registered(self, user, picture_filename=None):
-        """Проверить успешность регистрации"""
 
         # Проверяем заголовок модального окна
         self.modal_window.should(have.text('Thanks for submitting the form'))
 
-        # Формируем ожидаемые значения (точно как в вашем тесте)
         expected_values = [
             'Алексей Антонов',
             'antonov@example.com',
