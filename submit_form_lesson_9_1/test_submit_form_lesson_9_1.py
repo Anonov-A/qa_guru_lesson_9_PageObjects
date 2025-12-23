@@ -5,7 +5,6 @@ from selene import have
 from pages.registration_page import RegistrationPage
 
 
-# Явно импортируем фикстуру из корневого conftest
 from conftest import browser_management
 
 def test_student_registration_form(browser_management):
