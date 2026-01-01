@@ -4,7 +4,6 @@ from selene import Browser, Config
 
 
 
-new
 @pytest. fixture(scope=' function')
 def setup_browser (request):
     options = Options()
@@ -16,13 +15,13 @@ def setup_browser (request):
             "enableVideo": True
         }
     }
-options.capabilities.update(selenoid_capabilities)
-driver = webdriver. Remote(
+    options.capabilities.update(selenoid_capabilities)
+    driver = webdriver. Remote(
     command_executor=f"https://user1:1234@seLenoid.autotests.cloud/wd/hub", 
     options=options
-)
-
-browser = Browser(Config(driver))
-yield browser
-
-browser.quit()
+    )
+    
+    browser = Browser(Config(driver))
+    yield browser
+    
+    browser.quit()
