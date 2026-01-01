@@ -1,3 +1,4 @@
+# conftest.py
 import pytest
 from selenium import webdriver
 from selene import browser
@@ -6,24 +7,24 @@ import shutil
 
 @pytest.fixture(scope='function')
 def browser_management():
-    # Создаем уникальную временную директорию
+    
     temp_dir = tempfile.mkdtemp()
     
-    browser.config.base_url = 'https://demoqa.com'
-    browser.config.driver_options = webdriver.ChromeOptions()
-    browser.config.driver_options.add_argument('--window-size=1920,1080')
-    browser.config.driver_options.add_argument('--no-sandbox')
-    browser.config.driver_options.add_argument('--disable-dev-shm-usage')
-    browser.config.driver_options.add_argument('--incognito')
+    options = webdriver.ChromeOptions()
+    options.add_argument('--window-size=1920,1080')
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
+    options.add_argument('--headless')
+    options.add_argument('--incognito') 
+    options.add_argument(f'--user-data-dir={temp_dir}')
     
-    browser.config.timeout = 30
+    browser.config.driver_options = options
+    browser.config.base_url = 'https://demoqa.com'
+    browser.config.timeout = 20
 
     yield
 
-    try:
-        browser.quit()
-    except:
-        pass
+    browser.quit()
     
     # Очистка временной директории
     shutil.rmtree(temp_dir, ignore_errors=True)
