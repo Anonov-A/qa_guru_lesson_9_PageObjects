@@ -7,4 +7,4 @@ isort==7.0.0
 black==25.9.0
 webdriver-manager==4.0.2
 selene==2.0.0rc9
-allure-pytest
+allure-pytest==2.9.45
