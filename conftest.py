@@ -1,4 +1,3 @@
-# conftest.py (простая работающая версия)
 import pytest
 from selenium import webdriver
 from selene import browser
