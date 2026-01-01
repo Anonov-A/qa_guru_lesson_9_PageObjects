@@ -14,7 +14,6 @@ def browser_management():
     browser.config.driver_options.add_argument('--window-size=1920,1080')
     browser.config.driver_options.add_argument('--no-sandbox')
     browser.config.driver_options.add_argument('--disable-dev-shm-usage')
-    browser.config.driver_options.add_argument('--headless')
     browser.config.driver_options.add_argument('--incognito')
     
     browser.config.timeout = 30
