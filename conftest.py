@@ -25,3 +25,5 @@ def setup_browser(request):
     yield browser
     
     browser.quit()
+
+browser_management = setup_browser
